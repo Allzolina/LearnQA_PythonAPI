@@ -24,6 +24,7 @@ class TestUserAuth(BaseCase):
         self.token = self.get_header(response_login, "x-csrf-token")
         self.user_id_from_auth_method = self.get_json_value(response_login, "user_id")
 
+    @allure.severity(allure.severity_level.BLOCKER)
     @allure.description("This test successfully authorize user by email and password")
     def test_auth_user(self):
         response_auth = MyRequests.get(

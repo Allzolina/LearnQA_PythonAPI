@@ -6,6 +6,7 @@ import allure
 
 @allure.epic("Edit user info cases")
 class TestUserEdit(BaseCase):
+    @allure.severity(allure.severity_level.BLOCKER)
     @allure.description("Successful edit user info")
     def test_edit_just_created_user(self):
         # REGISTER
@@ -139,6 +140,7 @@ class TestUserEdit(BaseCase):
             Assertions.assert_json_value_by_name(response_edit, "error", "Invalid email format",
                                                  "Incorrect error message")
 
+    @allure.severity(allure.severity_level.MINOR)
     @allure.description("Attempt to edit  firstName to a very short value (1 character)")
     def test_edit_user_first_name_to_short(self):
         with allure.step("Register a new user"):

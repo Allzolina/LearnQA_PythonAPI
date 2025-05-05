@@ -7,6 +7,7 @@ import pytest
 
 @allure.epic("Registration cases")
 class TestUserRegister(BaseCase):
+    @allure.severity(allure.severity_level.BLOCKER)
     @allure.description("Successful user creation")
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
@@ -48,6 +49,7 @@ class TestUserRegister(BaseCase):
         Assertions.assert_code_status(response, 400)
         Assertions.assert_response_text(response, f"The following required params are missed: {missing_field}")
 
+    @allure.severity(allure.severity_level.MINOR)
     @allure.description("Attempt to create user with username 1 character")
     def test_create_user_with_short_name(self):
         short_name = "a"
@@ -58,6 +60,7 @@ class TestUserRegister(BaseCase):
         Assertions.assert_code_status(response, 400)
         Assertions.assert_response_text(response, "The value of 'username' field is too short")
 
+    @allure.severity(allure.severity_level.MINOR)
     @allure.description("Attempt to create user with username 250 character")
     def test_create_user_with_long_name(self):
         long_name = "a" * 251

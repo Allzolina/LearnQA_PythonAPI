@@ -15,6 +15,7 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, 'firstName')
         Assertions.assert_json_has_not_key(response, 'lastName')
 
+    @allure.severity(allure.severity_level.BLOCKER)
     @allure.description("Get user info authorized same user")
     def test_get_user_details_auth_as_same_user(self):
         data = {

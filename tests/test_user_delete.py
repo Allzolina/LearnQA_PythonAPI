@@ -35,6 +35,7 @@ class TestUserDelete(BaseCase):
                 "Incorrect error message"
             )
 
+    @allure.severity(allure.severity_level.BLOCKER)
     @allure.description("Successfully deleted user")
     def test_successfully_deleted_user(self):
         with allure.step("Register a new user"):
