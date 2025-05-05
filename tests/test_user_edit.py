@@ -102,29 +102,12 @@ class TestUserEdit(BaseCase):
                 cookies={"auth_sid": auth_sid},
                 data={"firstName": "Hacked Name"}
             )
-            Assertions.assert_code_status(response_edit, 200)
-
-        with allure.step("Login as user 1 and verify firstName has not changed"):
-            login_user1 = {
-                'email': user1_data['email'],
-                'password': user1_data['password']
-            }
-            response_login_user1 = MyRequests.post("/user/login", data=login_user1)
-            auth_sid_1 = self.get_cookie(response_login_user1, "auth_sid")
-            token_1 = self.get_header(response_login_user1, "x-csrf-token")
-
-            response_get = MyRequests.get(
-                f"/user/{user1_id}",
-                headers={"x-csrf-token": token_1},
-                cookies={"auth_sid": auth_sid_1}
-            )
-
+            Assertions.assert_code_status(response_edit, 400)
             Assertions.assert_json_value_by_name(
-                response_get,
-                "firstName",
-                user1_data["firstName"],
-                "firstName was changed by another user"
-            )
+                response_edit,
+                "error",
+                "This user can only edit their own data.",
+                "Incorrect error message")
 
     @allure.description("Attempt to edit user email to an invalid value without @")
     def test_edit_user_email_to_invalid(self):

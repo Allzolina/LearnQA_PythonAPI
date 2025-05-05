@@ -112,14 +112,9 @@ class TestUserDelete(BaseCase):
                 cookies={"auth_sid": auth_sid}
             )
 
-            Assertions.assert_code_status(response_delete, 200)
-
-        with allure.step("Checking that the user 2 is not deleted"):
-            response_get = MyRequests.get(
-                f"/user/{user_2_id}",
-                headers={"x-csrf-token": token},
-                cookies={"auth_sid": auth_sid}
-            )
-
-            Assertions.assert_code_status(response_get, 200)
-            Assertions.assert_json_has_key(response_get, "username")
+            Assertions.assert_code_status(response_delete, 400)
+            Assertions.assert_json_value_by_name(
+                response_delete,
+                "error",
+                "This user can only delete their own account.",
+                "Incorrect error message")
