@@ -4,6 +4,7 @@ from lib.assertions import Assertions
 import allure
 import pytest
 
+
 @allure.epic("Registration cases")
 class TestUserRegister(BaseCase):
     @allure.description("Successful user creation")
@@ -66,4 +67,3 @@ class TestUserRegister(BaseCase):
 
         Assertions.assert_code_status(response, 400)
         Assertions.assert_response_text(response, "The value of 'username' field is too long")
-
